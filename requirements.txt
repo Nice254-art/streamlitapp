@@ -1,0 +1,8 @@
+streamlit
+pandas
+joblib
+earthengine-api
+folium
+streamlit-folium
+plotly
+xgboost
