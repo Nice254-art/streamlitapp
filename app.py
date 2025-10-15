@@ -9,68 +9,8 @@ import plotly.express as px
 import joblib
 import datetime
 from folium.plugins import Draw
-<<<<<<< HEAD
-=======
+
 import json
->>>>>>> a86d83d (Use Earth Engine credentials from Render secret)
-
-# Clear ALL cache at the very beginning
-st.cache_data.clear()
-st.cache_resource.clear()
-
-st.set_page_config(
-    page_title="ReGenVision — AI Land Health & Erosion Assessment",  # Changed title
-    page_icon="🌍",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
-# Add version tracking
-st.sidebar.markdown("**Version:** 2.0 | **Deployed:** New")
-
-# Clear ALL cache at the very beginning
-st.cache_data.clear()
-st.cache_resource.clear()
-
-st.set_page_config(
-    page_title="ReGenVision — AI Land Health & Erosion Assessment",  # Changed title
-    page_icon="🌍",
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
-
-# Add version tracking
-st.sidebar.markdown("**Version:** 2.0 | **Deployed:** New")
-
-
-
-
-<<<<<<< HEAD
-# -------------------------
-# Initialization
-# -------------------------
-st.set_page_config(page_title="ReGenVision - Land Health", layout="wide")
-st.title("🌍 ReGenVision — Land Health Explorer")
-
-# Initialize Earth Engine (safe)
-def init_ee():
-    try:
-        ee.Initialize(project='siol-degradation')
-        return True, None
-    except Exception as e:
-        try:
-            ee.Initialize()  # fallback to default legacy project
-            return True, None
-        except Exception as e2:
-            return False, str(e2)
-
-
-ee_ok, ee_err = init_ee()
-if not ee_ok:
-    st.error("❌ Earth Engine init failed: " + str(ee_err))
-    st.info("Run `earthengine authenticate` locally and ensure your account has permission or remove project arg in ee.Initialize().")
-    st.stop()
-=======
 # ----------------------------
 # Initialize Earth Engine securely (Render)
 # ----------------------------
@@ -87,7 +27,52 @@ ee.Initialize(
         token_uri=creds['token_uri']
     )
 )
->>>>>>> a86d83d (Use Earth Engine credentials from Render secret)
+st.cache_data.clear()
+st.cache_resource.clear()
+
+st.set_page_config(
+    page_title="ReGenVision — AI Land Health & Erosion Assessment",  # Changed title
+    page_icon="🌍",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Add version tracking
+st.sidebar.markdown("**Version:** 2.0 | **Deployed:** New")
+
+# Clear ALL cache at the very beginning
+st.cache_data.clear()
+st.cache_resource.clear()
+
+st.set_page_config(
+    page_title="ReGenVision — AI Land Health & Erosion Assessment",  # Changed title
+    page_icon="🌍",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Add version tracking
+st.sidebar.markdown("**Version:** 2.0 | **Deployed:** New")
+
+
+
+
+# Initialize Earth Engine securely (Render)
+# ----------------------------
+CREDENTIALS_PATH = '/etc/secrets/credentials'
+
+with open(CREDENTIALS_PATH) as f:
+    creds = json.load(f)
+
+ee.Initialize(
+    credentials=ee.OAuthCredentials(
+        client_id=creds['client_id'],
+        client_secret=creds['client_secret'],
+        refresh_token=creds['refresh_token'],
+        token_uri=creds['token_uri']
+    )
+)
+
 
 # Optional: load saved model for land-health scoring (if present)
 MODEL_PATH = "model_xgb.pkl"
