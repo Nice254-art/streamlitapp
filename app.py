@@ -20,7 +20,8 @@ CREDENTIALS_PATH = '/etc/secrets/credentials'
 with open(CREDENTIALS_PATH) as f:
     creds = json.load(f)
 
-service_account = creds["earthengine-access@siol-degradation.iam.gserviceaccount.com"]  # from service account JSON
+service_account = creds["client_email"]
+ # from service account JSON
 key = CREDENTIALS_PATH
 
 credentials = ee.ServiceAccountCredentials(service_account, key)
