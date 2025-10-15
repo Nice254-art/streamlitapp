@@ -16,17 +16,16 @@ import json
 # ----------------------------
 CREDENTIALS_PATH = '/etc/secrets/credentials'
 
+# Load service account credentials JSON
 with open(CREDENTIALS_PATH) as f:
     creds = json.load(f)
 
-ee.Initialize(
-    credentials=ee.OAuthCredentials(
-        client_id=creds['client_id'],
-        client_secret=creds['client_secret'],
-        refresh_token=creds['refresh_token'],
-        token_uri=creds['token_uri']
-    )
-)
+service_account = creds["earthengine-access@siol-degradation.iam.gserviceaccount.com"]  # from service account JSON
+key = CREDENTIALS_PATH
+
+credentials = ee.ServiceAccountCredentials(service_account, key)
+ee.Initialize(credentials)
+
 st.cache_data.clear()
 st.cache_resource.clear()
 
